@@ -13,6 +13,14 @@ st.header("📊 Customer Segment Distribution")
 
 try:
     df = pd.read_csv("segmented_customers.csv")
+    
+    # Map segment numbers to names
+    segment_names = {
+        0: "Budget",
+        1: "Premium",
+        2: "Young",
+        3: "Loyal"
+    }
 
     fig, ax = plt.subplots()
     df['Segment'].value_counts().sort_index().plot(kind='bar', ax=ax)
