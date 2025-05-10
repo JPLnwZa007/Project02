@@ -30,23 +30,5 @@ st.header("Customer Segment Distribution")
 try:
     df = pd.read_csv("segmented_customers.csv")
 
-    # Bar chart
-    st.subheader("Number of Customers per Segment")
-    fig, ax = plt.subplots()
-    df['Segment'].value_counts().sort_index().plot(kind='bar', color='skyblue', ax=ax)
-    ax.set_xlabel("Segment")
-    ax.set_ylabel("Number of Customers")
-    ax.set_title("Customer Count by Segment")
-    st.pyplot(fig)
-
-    # Scatter plot: Income vs Segment
-    st.subheader("Income vs Segment")
-    fig2, ax2 = plt.subplots()
-    ax2.scatter(df['Segment'], df['Income'], c=df['Segment'], cmap='tab10', alpha=0.6, edgecolors='k')
-    ax2.set_xlabel("Segment")
-    ax2.set_ylabel("Income")
-    ax2.set_title("Customer Income by Segment")
-    st.pyplot(fig2)
-
 except FileNotFoundError:
     st.warning("File 'segmented_customers.csv' not found. Please generate it first.")
