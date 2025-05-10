@@ -7,23 +7,6 @@ import matplotlib.pyplot as plt
 model = pickle.load(open('kmeans_model.pkl', 'rb'))
 scaler = pickle.load(open('scaler.pkl', 'rb'))
 
-st.title("Customer Segmentation App")
-
-# Input section
-st.header("🔍 Predict Segment")
-income = st.number_input("Income", 0 , 1000000)
-kids = st.slider("Number of Kids", 0, 3)
-teens = st.slider("Number of Teens", 0, 3)
-recency = st.number_input("Recency", min_value=0)
-wines = st.number_input("Monthly Wine Spend")
-fruits = st.number_input("Monthly Fruit Spend")
-
-if st.button("Predict Segment"):
-    data = [[income, kids, teens, recency, wines, fruits]]
-    data_scaled = scaler.transform(data)
-    segment = model.predict(data_scaled)
-    st.success(f"Predicted Customer Segment: {segment[0]}")
-
 
 # Visualization section
 st.header("📊 Customer Segment Distribution")
@@ -33,6 +16,7 @@ try:
 
     # แปลงชื่อ segment ให้อ่านง่าย
     segment_names = {
+        0: "Budget",
         1: "Premium",
         2: "Young",
         3: "Loyal"
@@ -43,7 +27,7 @@ try:
     segment_counts = df['Segment Name'].value_counts().sort_index()
 
     fig, ax = plt.subplots()
-    bars = ax.bar(segment_counts.index, segment_counts.values, color=[ '#f28e2c', '#e15759', '#76b7b2'])
+    bars = ax.bar(segment_counts.index, segment_counts.values, color=['#4e79a7', '#f28e2c', '#e15759', '#76b7b2'])
 
     # ใส่จำนวนบนแท่ง
     for bar in bars:
