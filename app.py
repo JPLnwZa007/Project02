@@ -49,8 +49,8 @@ try:
     for bar in bars:
         height = bar.get_height()
         ax.annotate(f'{int(height)}',
-                    xy=(bar.get_x() + bar.get_width() / 3, height),
-                    xytext=(1, 3),
+                    xy=(bar.get_x() + bar.get_width() / 5, height),
+                    xytext=(0, 3),
                     textcoords="offset points",
                     ha='center', va='bottom')
 
