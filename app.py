@@ -9,7 +9,7 @@ scaler = pickle.load(open('scaler.pkl', 'rb'))
 
 # Segment name mapping
 segment_names = {
-    0: "Budget",
+    0: "Normal",
     1: "Premium",
     2: "Young",
     3: "Loyal"
@@ -42,8 +42,8 @@ st.title("🧠 Customer Segmentation App")
 st.header("🔍 Predict Segment")
 with st.form("predict_form"):
     income = st.number_input("Income", min_value=0, help="Monthly income in dollars")
-    kids = st.slider("Number of Kids", 0, 1)
-    teens = st.slider("Number of Teens", 0, 1)
+    kids = st.slider("Number of Kids", 0, 3)
+    teens = st.slider("Number of Teens", 0, 3)
     recency = st.number_input("Recency", min_value=0, help="Days since last purchase")
     wines = st.number_input("Monthly Wine Spend", min_value=0)
     fruits = st.number_input("Monthly Fruit Spend", min_value=0)
