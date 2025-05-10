@@ -7,6 +7,23 @@ import matplotlib.pyplot as plt
 model = pickle.load(open('kmeans_model.pkl', 'rb'))
 scaler = pickle.load(open('scaler.pkl', 'rb'))
 
+st.title("Customer Segmentation App")
+
+# Input section
+st.header("🔍 Predict Segment")
+income = st.number_input("Income", min_value=0)
+kids = st.slider("Number of Kids", 0, 3)
+teens = st.slider("Number of Teens", 0, 3)
+recency = st.number_input("Recency", min_value=0)
+wines = st.number_input("Monthly Wine Spend")
+fruits = st.number_input("Monthly Fruit Spend")
+
+if st.button("Predict Segment"):
+    data = [[income, kids, teens, recency, wines, fruits]]
+    data_scaled = scaler.transform(data)
+    segment = model.predict(data_scaled)
+    st.success(f"Predicted Customer Segment: {segment[0]}")
+
 
 # Visualization section
 st.header("📊 Customer Segment Distribution")
@@ -32,7 +49,7 @@ try:
     for bar in bars:
         height = bar.get_height()
         ax.annotate(f'{int(height)}',
-                    xy=(bar.get_x() + bar.get_width() / 2, height),
+                    xy=(bar.get_x() + bar.get_width() / 3, height),
                     xytext=(1, 3),
                     textcoords="offset points",
                     ha='center', va='bottom')
