@@ -44,4 +44,3 @@ try:
 
 except FileNotFoundError:
     st.warning("File 'segmented_customers.csv' not found. Please generate it first.")
-
