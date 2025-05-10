@@ -1,13 +1,16 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import matplotlib.pyplot as plt
 
-# Load model and data
+# Load model and scaler
 model = pickle.load(open('kmeans_model.pkl', 'rb'))
 scaler = pickle.load(open('scaler.pkl', 'rb'))
 
 st.title("Customer Segmentation App")
 
+# Input section
+st.header("🔍 Predict Segment")
 income = st.number_input("Income", min_value=0)
 kids = st.slider("Number of Kids", 0, 3)
 teens = st.slider("Number of Teens", 0, 3)
@@ -21,3 +24,18 @@ if st.button("Predict Segment"):
     segment = model.predict(data_scaled)
     st.success(f"Predicted Customer Segment: {segment[0]}")
 
+# Visualization section
+st.header("📊 Customer Segment Distribution")
+
+try:
+    df = pd.read_csv("segmented_customers.csv")
+
+    fig, ax = plt.subplots()
+    df['Segment'].value_counts().sort_index().plot(kind='bar', ax=ax)
+    ax.set_xlabel("Segment")
+    ax.set_ylabel("Number of Customers")
+    ax.set_title("Customer Count by Segment")
+    st.pyplot(fig)
+
+except FileNotFoundError:
+    st.warning("segmented_customers.csv not found. Please run the training script first.")
